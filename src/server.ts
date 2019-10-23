@@ -33,7 +33,7 @@ import { pseudoRandomBytes } from 'crypto';
   /**************************************************************************** */
 
   //! END @TODO1
-  app.get("/filteredimage", async ( req, res ) => {
+  app.get("/filteredimage", async ( req : Request, res : Response ) => {
     let url = req.query.image_url;
 
     if (!url) {
@@ -41,8 +41,7 @@ import { pseudoRandomBytes } from 'crypto';
     }
 
     const filePath = await filterImageFromURL(url);
-    res.sendFile(filePath);
-    res.on('finish', function() {
+    res.sendFile(filePath, function(){
       deleteLocalFiles([filePath]);
     });
   });
@@ -50,7 +49,7 @@ import { pseudoRandomBytes } from 'crypto';
 
   // Root Endpoint
   // Displays a simple message to the user
-  app.get( "/", async ( req, res ) => {
+  app.get( "/", async ( req : Request, res : Response ) => {
     res.send("try GET /filteredimage?image_url={{}}")
   } );
   
